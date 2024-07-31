@@ -23,7 +23,7 @@ class MessageController extends Controller
 
     public function index()
     {
-        $messages = Message::paginate(2);
+        $messages = Message::paginate(4);
         return view('admin.messages.index', compact('messages'));
     }
 

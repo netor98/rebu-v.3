@@ -15,12 +15,18 @@ class Product extends Model
         'description',
         'image',
         'price',
-        'active'
+        'active',
+        'store_id'
     ];
 
     public function saleItems()
     {
         return $this->hasMany(SaleItem::class);
+    }
+        
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
     }
     
 }

@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="my-2 container p-16 mx-auto">
+    <div class=" container p-16 mx-auto">
         @if(session('update'))
                 <div id="alert-border-3" class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50" role="alert">
                     <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -13,9 +13,9 @@
                 </div>  
         @endif
                     
-        <h3 class="font-medium text-2xl my-4">Productos</h3>
+        <h3 class="font-medium text-2xl">Productos</h3>
 
-        <div class="overflow-x-auto my-16 shadow-md sm:rounded-lg">
+        <div class="overflow-x-auto my-10 shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-center text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-100 ">
                     <tr>

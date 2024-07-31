@@ -123,6 +123,15 @@
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="role" :value="__('Rol')" />
+            <select id="role" name="role" class="border p-3 w-full rounded-xl">
+               <option value="0" selected>Cliente</option>
+               <option value="1">Repartidor</option>
+            </select>
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+      </div>
+
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Correo')" />

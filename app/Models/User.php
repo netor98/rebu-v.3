@@ -11,49 +11,54 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable;
+   use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'username',
-        'email',
-        'age',
-        'active',
-        'password',
-        'email_verified_at',
-    ];
+   /**
+    * The attributes that are mass assignable.
+    *
+    * @var array<int, string>
+    */
+   protected $fillable = [
+      'name',
+      'username',
+      'email',
+      'age',
+      'active',
+      'password',
+      'email_verified_at',
+      'role',
+   ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+   /**
+    * The attributes that should be hidden for serialization.
+    *
+    * @var array<int, string>
+    */
+   protected $hidden = [
+      'password',
+      'remember_token',
+   ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+   /**
+    * Get the attributes that should be cast.
+    *
+    * @return array<string, string>
+    */
+   protected function casts(): array
+   {
+      return [
+         'email_verified_at' => 'datetime',
+         'password' => 'hashed',
+      ];
+   }
 
-    public function sales()
-    {
-        return $this->hasMany(Sale::class); // Asume que el modelo de venta se llama 'Sale' y que tiene una clave foránea 'user_id'
-    }
+   public function sales()
+   {
+      return $this->hasMany(Sale::class); // Asume que el modelo de venta se llama 'Sale' y que tiene una clave foránea 'user_id'
+   }
 
+   public function deliveries()
+   {
+      return $this->hasMany(Delivery::class);
+   }
 }

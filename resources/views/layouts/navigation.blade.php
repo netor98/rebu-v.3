@@ -17,13 +17,21 @@
                     </x-nav-link>
 
                 @if(auth()->user()->id == 1)
-                
+
                     <x-nav-link :href="route('admin.messages')" :active="request()->routeIs('admin.messages')">
                         {{ __('Mensajes') }}
                     </x-nav-link>
                 @endif
 
-                   
+
+               @if(auth()->user()->role == 1)
+
+                   <x-nav-link :href="route('delivery.index')" :active="request()->routeIs('delivery.index')">
+                       {{ __('Pedidos') }}
+                   </x-nav-link>
+               @endif
+
+
                 </div>
             </div>
             <div class="relative w-full max-w-[300px]  hidden md:max-w-[550px] md:block">
@@ -34,8 +42,8 @@
                 <svg class="absolute top-0 right-0 mt-3 mr-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
                 </svg>
-                      
-                
+
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -59,16 +67,16 @@
                         </svg>
                     </a>
 
-                   
+
 
                     <div class="absolute bg-red-600 text-white text-base -top-1 -right-1 rounded-full grid place-items-center w-[15px]"
                         id="counter-products">
                         {{count((array) session('cart'))}}
                     </div>
-                      
+
                 </li>
 
-               
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -106,7 +114,12 @@
                             </x-dropdown-link>
                         @endif
 
-                      
+                        @if(auth()->user()->role == 1)
+
+                           <x-dropdown-link :href="route('agent.deliveries')">
+                              {{ __('Mis entregas') }}
+                           </x-dropdown-link>
+                        @endif
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -138,8 +151,34 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('shop')" :active="request()->routeIs('shop')">
-                {{ __('Dashboard') }}
+                {{ __('Tienda') }}
             </x-responsive-nav-link>
+
+            @if(auth()->user()->role == 1)
+               <x-responsive-nav-link :href="route('delivery.index')" :active="request()->routeIs('delivery.index')">
+                   {{ __('Pedidos') }}
+               </x-responsive-nav-link>
+            @endif
+
+            @if(auth()->user()->id == 1)
+
+                <x-responsive-nav-link :href="route('reports.product_sales')" :active="request()->routeIs('reports.product_sales')">
+                    {{ __('Reportes') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.users')">
+                    {{ __('Gestión usuarios') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.sales')">
+                    {{ __('Ventas por usuarios') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('details')">
+                  {{ __('Carrito') }}
+              </x-responsive-nav-link>
+            @endif
+
         </div>
 
         <!-- Responsive Settings Options -->
@@ -151,7 +190,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Perfil') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -161,7 +200,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Cerrar sesión') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

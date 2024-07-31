@@ -14,39 +14,45 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
-    {
-        return view('auth.register');
-    }
+   /**
+    * Display the registration view.
+    */
+   public function create(): View
+   {
+      return view('auth.register');
+   }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:'.User::class],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+   /**
+    * Handle an incoming registration request.
+    *
+    * @throws \Illuminate\Validation\ValidationException
+    */
+   public function store(Request $request): RedirectResponse
+   {
+      $request->validate([
+         'name' => ['required', 'string', 'max:255'],
+         'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
+         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+         'password' => ['required', 'confirmed', Rules\Password::defaults()],
+         'role' => ['required', 'integer'], // 
+      ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+      $user = User::create([
+         'name' => $request->name,
+         'username' => $request->username,
+         'email' => $request->email,
+         'password' => Hash::make($request->password),
+         'role' => $request->role,
+      ]);
 
-        event(new Registered($user));
+      event(new Registered($user));
 
-        Auth::login($user);
+      Auth::login($user);
 
-        return redirect(route('shop', absolute: false));
-    }
+      if ($user->role == 1) {
+         return redirect(route('delivery.index', absolute: false));
+      }
+
+      return redirect(route('shop', absolute: false));
+   }
 }

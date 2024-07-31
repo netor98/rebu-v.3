@@ -11,20 +11,20 @@ use Illuminate\Queue\SerializesModels;
 
 class ResponseMail extends Mailable
 {
-    use Queueable, SerializesModels;
+   use Queueable, SerializesModels;
 
-    public $response;
+   public $response;
 
-    public function __construct($response)
-    {
-        $this->response = $response;
-    }
+   public function __construct($response)
+   {
+      $this->response = $response;
+   }
 
-    public function build()
-    {
-        return $this->view('emails.response')
-                    ->with([
-                        'response' => $this->response,
-                    ]);
-    }
+   public function build()
+   {
+      return $this->view('emails.response')
+         ->with([
+            'response' => $this->response,
+         ]);
+   }
 }

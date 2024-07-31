@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="my-14 container p-16 mx-auto ">
+    <div class="my-14 container mx-auto w-96">
         <h3 class="font-medium text-2xl my-4">@if (isset($edit->id)) {{ 'Edición de producto' }} @else {{'Creación de producto'}}@endif</h3>
 
 
@@ -109,12 +109,43 @@
             </div>
 
             <div class="mb-5">
+                <label for="price" class="mb-2 block uppercase text-black font-bold">
+                    Tienda
+                </label>
+
+                <select name="store" id="store" class="border p-3 w-full rounded-xl"
+                
+                
+                @error('active')
+                        border-red-500    
+                @enderror
+                    placeholder="1: Activo, 0:Desactivo"
+                    value="@if (isset($edit->id)) {{ $edit->store_id }}@endif"> 
+                    
+                    @error('active')
+                        <p class="bg-red-500 text-white my-2 rounded-md text-center text-sm p-2">
+                            {{$message}}
+                        </p>
+                    @enderror>
+                    <option value="1" @if(isset($edit) && $edit->store_id == 1) selected @endif>Prepa C.U</option>
+                    <option value="2" @if(isset($edit) && $edit->store_id == 2) selected @endif>Facultad de enfermería</option>
+                    <option value="3" @if(isset($edit) && $edit->store_id == 3) selected @endif>Unidad Académica de Negocios</option>
+
+                </select>
+            </div>
+
+            <div class="mb-5">
                 <label for="">Foto</label>
                 <div class="avatar-upload">
                     <div>
                         <input type='file' id="image" name="image" accept=".png, .jpg, .jpeg"
                         
                         value="@if (isset($edit->id)) {{ $edit->image }}@endif" />
+                        @error('image')
+                            <p class="bg-red-500 text-white my-2 rounded-md text-center text-sm p-2">
+                                {{$message}}
+                            </p>
+                        @enderror
                         <label for="imageUpload">@if (isset($edit->id)) {{ $edit->image }}@endif</label>
                     </div>
                     

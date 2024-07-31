@@ -162,7 +162,7 @@ class ReportController extends Controller
         // Consulta las ventas dentro del rango de fechas
         $salesByDateRange = Sale::whereBetween('created_at', [$startDate . " 00:00:00", $endDate . " 23:59:59"])
                 ->with(['user', 'saleItems.product']) // Carga las relaciones necesarias
-                ->paginate(3)// Pagina los resultados
+                ->paginate(5)// Pagina los resultados
                 ->through(function ($sale) {
                     return [
                         'date' => $sale->created_at->format('Y-m-d'),
